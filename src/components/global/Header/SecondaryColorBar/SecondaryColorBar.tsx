@@ -2,11 +2,12 @@ import Stack from "@mui/material/Stack";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 
-/* @TODO add test immediate */
 function SecondaryColorBar() {
   return (
     <Stack
       className="bar"
+      aria-hidden="true"
+      role="presentation"
       sx={{
         backgroundColor: "secondary.main",
       }}
