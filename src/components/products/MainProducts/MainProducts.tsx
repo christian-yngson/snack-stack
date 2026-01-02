@@ -2,7 +2,7 @@ import Stack from "@mui/material/Stack";
 import Container from "@mui/material/Container";
 import ProductsFilter from "./ProductsFilter";
 
-/* @TODO add test immediate */
+/* @TODO add test later */
 function Main() {
   return (
     <Container sx={{ my: 6 }}>
