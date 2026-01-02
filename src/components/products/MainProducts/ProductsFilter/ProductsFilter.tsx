@@ -4,7 +4,6 @@ import HeadingAndFilterReset from "./HeadingAndFIlterReset";
 import ProductsFilterElements from "./ProductsFilterElements";
 import Stack from "@mui/material/Stack";
 
-/* @TODO add test immediate */
 function ProductsFilter() {
   return (
     <Card sx={{ minWidth: 275 }} variant="outlined">
