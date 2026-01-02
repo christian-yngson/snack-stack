@@ -20,7 +20,7 @@ const getVeggies = () => {
       price: 10,
       image: GreekSaladImage,
     },
-  ] as const;
+  ];
 };
 
 export default getVeggies;

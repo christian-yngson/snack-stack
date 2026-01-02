@@ -37,6 +37,6 @@ const getBurgers = () => {
       price: 11,
       image: VeggieBurgerImage,
     },
-  ] as const;
+  ];
 };
 export default getBurgers;
