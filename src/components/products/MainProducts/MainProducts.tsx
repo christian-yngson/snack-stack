@@ -1,17 +1,20 @@
 import Stack from "@mui/material/Stack";
 import Container from "@mui/material/Container";
 import ProductsFilter from "./ProductsFilter";
+import ProductsList from "./ProductsList";
 
 /* @TODO add test later */
 function Main() {
   return (
     <Container sx={{ my: 6 }}>
       <Stack direction={{ sm: "column", md: "row" }} gap={6}>
-        <Stack sx={{ flexGrow: 1 }}>
+        <Stack sx={{ flexGrow: 1 }} gap={4}>
           <ProductsFilter />
-          <div>products here</div>
+          <ProductsList />
         </Stack>
-        <div>order summary here</div>
+        <div style={{ position: "sticky", top: "20px" }}>
+          order summary here
+        </div>
       </Stack>
     </Container>
   );
