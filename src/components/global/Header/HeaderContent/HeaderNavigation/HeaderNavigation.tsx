@@ -14,6 +14,10 @@ function HeaderNavigation() {
         spacing={0}
         component="nav"
         aria-label="main navigation"
+        display={{
+          xs: "none",
+          sm: "flex",
+        }}
       >
         {navTexts.map((text) => (
           <NavigationTextButton key={text}>{text}</NavigationTextButton>
