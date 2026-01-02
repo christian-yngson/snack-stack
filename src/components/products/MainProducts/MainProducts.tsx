@@ -6,7 +6,7 @@ import ProductsFilter from "./ProductsFilter";
 function Main() {
   return (
     <Container sx={{ my: 6 }}>
-      <Stack direction="row" gap={6}>
+      <Stack direction={{ sm: "column", md: "row" }} gap={6}>
         <Stack sx={{ flexGrow: 1 }}>
           <ProductsFilter />
           <div>products here</div>

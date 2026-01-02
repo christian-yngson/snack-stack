@@ -7,7 +7,7 @@ function ProductsFilterElements() {
     <Stack
       sx={{ flexDirection: { xs: "column", sm: "row" } }}
       gap={4}
-      justifyContent="space-between"
+      justifyContent={{ xs: "flex-start", sm: "space-between" }}
       alignItems="center"
       flexGrow={1}
     >
