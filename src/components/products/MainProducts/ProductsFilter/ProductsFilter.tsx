@@ -1,6 +1,6 @@
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import HeadingAndFIlterReset from "./HeadingAndFIlterReset";
+import HeadingAndFilterReset from "./HeadingAndFIlterReset";
 import ProductsFilterElements from "./ProductsFilterElements";
 import Stack from "@mui/material/Stack";
 
@@ -10,7 +10,7 @@ function ProductsFilter() {
     <Card sx={{ minWidth: 275 }} variant="outlined">
       <CardContent>
         <Stack gap={2}>
-          <HeadingAndFIlterReset />
+          <HeadingAndFilterReset />
           <ProductsFilterElements />
         </Stack>
       </CardContent>
