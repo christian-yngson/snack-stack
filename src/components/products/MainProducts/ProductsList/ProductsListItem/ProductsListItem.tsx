@@ -22,7 +22,7 @@ function ProductsListItem({ name, description, image, price }: Props) {
   return (
     <Grid size={{ xs: 12, sm: 6 }} component={ListItem} sx={{ padding: "0" }}>
       <Card>
-        <CardMedia component="img" alt={name} height={200} image={image} />
+        <CardMedia component="img" alt={name} height={160} image={image} />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
             {name}
