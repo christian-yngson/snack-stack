@@ -5,7 +5,7 @@ import { type RootState } from "@/redux/store";
 
 function TotalAmount() {
   const total = useSelector((state: RootState) => {
-    return state.cartReducer.value.reduce(
+    return state.cart.value.reduce(
       (acc, order) => acc + order.price * order.quantity,
       10
     );
