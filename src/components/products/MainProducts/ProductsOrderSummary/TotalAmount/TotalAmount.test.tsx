@@ -26,7 +26,7 @@ describe("TotalAmount", () => {
   it("should calculate total from cart items", () => {
     vi.mocked(useSelector).mockImplementation((selector) => {
       const mockState = {
-        cartReducer: {
+        cart: {
           value: [
             { price: 10, quantity: 2 },
             { price: 5, quantity: 3 },
@@ -43,7 +43,7 @@ describe("TotalAmount", () => {
   it("should handle empty cart with initial value of 10", () => {
     vi.mocked(useSelector).mockImplementation((selector) => {
       const mockState = {
-        cartReducer: {
+        cart: {
           value: [],
         },
       };

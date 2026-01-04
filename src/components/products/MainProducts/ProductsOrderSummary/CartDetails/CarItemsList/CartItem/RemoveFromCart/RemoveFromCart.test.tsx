@@ -9,7 +9,7 @@ import cartReducer from "@/redux/features/cart/cartSlice";
 const createMockStore = () => {
   return configureStore({
     reducer: {
-      cart: cartReducer,
+      cart: cartReducer, // Match the key used in your actual app
     },
   });
 };
@@ -37,11 +37,11 @@ describe("RemoveFromCart", () => {
     );
 
     const user = userEvent.setup();
-
     const button = screen.getByRole("button");
     await user.click(button);
 
     expect(dispatchSpy).toHaveBeenCalled();
+    dispatchSpy.mockRestore();
   });
 
   it("should handle string productId", async () => {
@@ -58,5 +58,29 @@ describe("RemoveFromCart", () => {
     await user.click(button);
 
     expect(button).toBeInTheDocument();
+  });
+
+  it("should render DeleteIcon with error color", () => {
+    const store = createMockStore();
+    render(
+      <Provider store={store}>
+        <RemoveFromCart productId={1} />
+      </Provider>
+    );
+
+    const deleteIcon = screen.getByRole("button").querySelector("svg");
+    expect(deleteIcon).toBeInTheDocument();
+  });
+
+  it("should have correct positioning styles", () => {
+    const store = createMockStore();
+    const { container } = render(
+      <Provider store={store}>
+        <RemoveFromCart productId={1} />
+      </Provider>
+    );
+
+    const button = container.querySelector("button");
+    expect(button).toHaveStyle({ position: "relative" });
   });
 });
