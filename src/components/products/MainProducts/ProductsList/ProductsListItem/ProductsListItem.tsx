@@ -5,20 +5,22 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import CardActions from "@mui/material/CardActions";
 import Grid from "@mui/material/Grid";
-import IconButton from "@mui/material/IconButton";
-import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
 import { Stack } from "@mui/material";
+import AddToCartButton from "./AddToCartButton";
 
 interface Props {
-  name: string;
-  description: string;
-  image: string;
-  price: number;
+  product: {
+    id: number | string;
+    name: string;
+    description: string;
+    price: number;
+    image: string;
+  };
 }
 
-/* @TODO add test later after adding event listeners */
-function ProductsListItem({ name, description, image, price }: Props) {
+function ProductsListItem({ product }: Props) {
+  const { name, description, image, price } = product;
   return (
     <Grid size={{ xs: 12, sm: 6 }} component={ListItem} sx={{ padding: "0" }}>
       <Card>
@@ -46,9 +48,7 @@ function ProductsListItem({ name, description, image, price }: Props) {
             />
             <Typography variant="body1">${price}</Typography>
           </Stack>
-          <IconButton aria-label="add to shopping cart" color="primary">
-            <ShoppingCartOutlinedIcon />
-          </IconButton>
+          <AddToCartButton order={product} />
         </CardActions>
       </Card>
     </Grid>

@@ -8,13 +8,7 @@ function ProductsList() {
   return (
     <Grid container spacing={{ xs: 2, md: 3 }} component={List}>
       {foodItems.map((item) => (
-        <ProductsListItem
-          key={item.id}
-          name={item.name}
-          description={item.description}
-          image={item.image}
-          price={item.price}
-        />
+        <ProductsListItem key={item.id} product={item} />
       ))}
     </Grid>
   );

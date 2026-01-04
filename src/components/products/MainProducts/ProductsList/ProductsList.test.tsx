@@ -5,9 +5,13 @@ import getFoodItems from "@/lib/functions/getFoodItems";
 
 vi.mock("@/lib/functions/getFoodItems");
 vi.mock("./ProductsListItem", () => ({
-  default: ({ name, price }: { name: string; price: number }) => (
+  default: ({
+    product,
+  }: {
+    product: { id: number; name: string; price: number };
+  }) => (
     <div data-testid="products-list-item">
-      {name} - ${price}
+      {product.name} - ${product.price}
     </div>
   ),
 }));
