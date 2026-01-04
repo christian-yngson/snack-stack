@@ -4,7 +4,7 @@ import { type RootState } from "@/redux/store";
 
 function CartItemsList() {
   const cartItems = useSelector((state: RootState) => state.cart.value);
-  return cartItems.map((c) => <CartItem order={c} />);
+  return cartItems.map((c) => <CartItem key={c.id} order={c} />);
 }
 
 export default CartItemsList;
