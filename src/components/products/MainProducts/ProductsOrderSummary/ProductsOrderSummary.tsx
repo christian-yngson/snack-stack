@@ -2,12 +2,11 @@ import Card from "@mui/material/Card";
 import Stack from "@mui/material/Stack";
 import CardContent from "@mui/material/CardContent";
 import SummaryHeading from "./SummaryHeading";
-import EmptyCart from "./EmptyCart";
 import DeliveryAmount from "./DeliveryAmount";
 import TotalAmount from "./TotalAmount";
 import ContinueButton from "./ContinueButton";
+import CartDetails from "./CartDetails";
 
-/* @TODO add test immediate */
 function ProductsOrderSummary() {
   return (
     <Card
@@ -24,7 +23,7 @@ function ProductsOrderSummary() {
       <CardContent sx={{ padding: 0, paddingBottom: "0px !important" }}>
         <SummaryHeading />
         <Stack sx={{ padding: 4 }} gap={2}>
-          <EmptyCart />
+          <CartDetails />
           <DeliveryAmount />
           <TotalAmount />
           <ContinueButton />
