@@ -16,7 +16,7 @@ function FoodPreviewContent() {
           sm: 4,
         }}
       >
-        <CardMedia component="img" alt={name} height="40%" image={image} />
+        <CardMedia component="img" alt={name} height={300} image={image} />
         <Stack
           spacing={{
             xs: 1,
