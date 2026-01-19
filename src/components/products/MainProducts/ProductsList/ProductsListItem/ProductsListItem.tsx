@@ -1,30 +1,25 @@
 import ListItem from "@mui/material/ListItem";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import CardActions from "@mui/material/CardActions";
 import Grid from "@mui/material/Grid";
 import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
 import { Stack } from "@mui/material";
 import AddToCartButton from "./AddToCartButton";
+import FoodImage from "./FoodImage";
+import Product from "@/models/Product";
 
 interface Props {
-  product: {
-    id: number | string;
-    name: string;
-    description: string;
-    price: number;
-    image: string;
-  };
+  product: Product;
 }
 
 function ProductsListItem({ product }: Props) {
-  const { name, description, image, price } = product;
+  const { name, description, price } = product;
   return (
     <Grid size={{ xs: 12, sm: 6 }} component={ListItem} sx={{ padding: "0" }}>
       <Card>
-        <CardMedia component="img" alt={name} height={160} image={image} />
+        <FoodImage food={product} />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
             {name}

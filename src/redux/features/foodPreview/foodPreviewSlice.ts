@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import Product from "@/models/Product";
-import HawaiianPizzaImage from "@/assets/images/food/pizza/hawaiian-pizza.avif";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
 export interface FoodPreviewState {
@@ -9,14 +8,7 @@ export interface FoodPreviewState {
 }
 
 const initialState: FoodPreviewState = {
-  food: {
-    id: 1,
-    name: "Hawaiian Pizza",
-    description:
-      "A classic combination of savory ham and sweet pineapple layered over rich tomato sauce. Melted mozzarella brings everything together with a perfect balance of salty and sweet.",
-    price: 12,
-    image: HawaiianPizzaImage,
-  },
+  food: null,
   isOpen: false,
 };
 
@@ -29,7 +21,6 @@ export const foodPreviewSlice = createSlice({
       state.isOpen = true;
     },
     closePreview: (state) => {
-      state.food = null;
       state.isOpen = false;
     },
   },
