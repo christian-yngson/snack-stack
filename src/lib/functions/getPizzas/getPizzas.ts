@@ -87,7 +87,7 @@ const getPizzas = () => {
         "🧈 11g fat",
       ],
     },
-  ] as const;
+  ];
 };
 
 export default getPizzas;

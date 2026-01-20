@@ -5,12 +5,12 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import Header from "./components/global/Header";
 import Stack from "@mui/material/Stack";
-import MainProducts from "./components/products/MainProducts";
+import { Outlet } from "react-router";
 function App() {
   return (
     <Stack>
       <Header />
-      <MainProducts />
+      <Outlet />
     </Stack>
   );
 }

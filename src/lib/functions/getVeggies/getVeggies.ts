@@ -36,7 +36,7 @@ const getVeggies = () => {
       ],
       nutrition: ["🔥 280 kcal", "💪 8g protein", "🍞 20g carbs", "🧈 21g fat"],
     },
-  ] as const;
+  ];
 };
 
 export default getVeggies;
