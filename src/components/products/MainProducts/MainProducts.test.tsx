@@ -24,56 +24,55 @@ vi.mock("./ProductsOrderSummary", () => ({
 vi.mock("./FoodPreview", () => ({
   default: () => <div data-testid="food-preview">Food Preview</div>,
 }));
+vi.mock("@/components/global/Header/SecondaryColorBar", () => ({
+  default: () => (
+    <div data-testid="secondary-color-bar">Secondary Color Bar</div>
+  ),
+}));
 
 describe("MainProducts", () => {
+  it("should render without crashing", () => {
+    render(<MainProducts />);
+    expect(screen.getAllByTestId("stack").length).toBeGreaterThan(0);
+  });
+
+  it("should render SecondaryColorBar component", () => {
+    render(<MainProducts />);
+    expect(screen.getByTestId("secondary-color-bar")).toBeInTheDocument();
+  });
+
   it("should render Container component", () => {
     render(<MainProducts />);
-
     expect(screen.getByTestId("container")).toBeInTheDocument();
   });
 
   it("should render FoodPreview component", () => {
     render(<MainProducts />);
-
     expect(screen.getByTestId("food-preview")).toBeInTheDocument();
   });
 
   it("should render ProductsFilter component", () => {
     render(<MainProducts />);
-
     expect(screen.getByTestId("products-filter")).toBeInTheDocument();
   });
 
   it("should render ProductsList component", () => {
     render(<MainProducts />);
-
     expect(screen.getByTestId("products-list")).toBeInTheDocument();
   });
 
   it("should render ProductsOrderSummary component", () => {
     render(<MainProducts />);
-
     expect(screen.getByTestId("products-order-summary")).toBeInTheDocument();
   });
 
-  it("should render all components in correct order", () => {
+  it("should render all child components", () => {
     render(<MainProducts />);
 
-    const foodPreview = screen.getByTestId("food-preview");
-    const filter = screen.getByTestId("products-filter");
-    const list = screen.getByTestId("products-list");
-    const summary = screen.getByTestId("products-order-summary");
-
-    expect(foodPreview).toBeInTheDocument();
-    expect(filter).toBeInTheDocument();
-    expect(list).toBeInTheDocument();
-    expect(summary).toBeInTheDocument();
-  });
-
-  it("should render correct layout structure", () => {
-    render(<MainProducts />);
-
-    const stacks = screen.getAllByTestId("stack");
-    expect(stacks.length).toBeGreaterThan(0);
+    expect(screen.getByTestId("secondary-color-bar")).toBeInTheDocument();
+    expect(screen.getByTestId("food-preview")).toBeInTheDocument();
+    expect(screen.getByTestId("products-filter")).toBeInTheDocument();
+    expect(screen.getByTestId("products-list")).toBeInTheDocument();
+    expect(screen.getByTestId("products-order-summary")).toBeInTheDocument();
   });
 });
