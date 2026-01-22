@@ -1,17 +1,22 @@
 import CardMedia from "@mui/material/CardMedia";
-import Burger from "@/assets/images/home/burger.jpg";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import CarouselDarkOverlay from "../CarouselDarkOverlay";
 /* @TODO add test immediate */
-function CarouselItem() {
+
+interface Props {
+  image: string;
+  altText: string;
+  title: string;
+  subtitle: string;
+}
+function CarouselItem({ image, altText, title, subtitle }: Props) {
   return (
     <Stack sx={{ position: "relative" }}>
       <CardMedia
-        key={Burger}
         component="img"
-        image={Burger}
-        alt={"Burger"}
+        image={image}
+        alt={altText}
         sx={{
           width: "100%",
           height: "60vh",
@@ -21,20 +26,17 @@ function CarouselItem() {
       <Stack
         sx={{
           position: "absolute",
-          top: "50%",
+          top: "40%",
           left: "50%",
           transform: "translate(-50%, -50%)",
           color: "white",
           textAlign: "center",
           zIndex: 1,
         }}
+        gap={1}
       >
-        <Typography variant="h3" component="div" gutterBottom>
-          Welcome to Snack Stack
-        </Typography>
-        <Typography variant="h5" component="div">
-          Deliciousness delivered to your door
-        </Typography>
+        <Typography variant="h1">{title}</Typography>
+        <Typography variant="h4">{subtitle}</Typography>
       </Stack>
       <CarouselDarkOverlay />
     </Stack>
