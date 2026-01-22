@@ -1,6 +1,8 @@
+import HeroCarousel from "./HeroCarousel";
+
 /* @TODO add test immediate */
 function MainHome() {
-  return <div>this is the dat main home</div>;
+  return <HeroCarousel />;
 }
 
 export default MainHome;

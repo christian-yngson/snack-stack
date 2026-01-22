@@ -6,10 +6,6 @@ vi.mock("./HeaderContent", () => ({
   default: () => <div data-testid="header-content">HeaderContent</div>,
 }));
 
-vi.mock("./SecondaryColorBar", () => ({
-  default: () => <div data-testid="secondary-color-bar">SecondaryColorBar</div>,
-}));
-
 vi.mock("./HeaderContent/HeaderContentContainer", () => ({
   default: ({ children }: { children: React.ReactNode }) => (
     <div data-testid="header-content-container">{children}</div>
@@ -27,14 +23,15 @@ describe("Header", () => {
     expect(screen.getByTestId("header-content")).toBeInTheDocument();
   });
 
-  it("should render SecondaryColorBar component", () => {
-    render(<Header />);
-    expect(screen.getByTestId("secondary-color-bar")).toBeInTheDocument();
-  });
-
   it("should render AppBar with correct props", () => {
     const { container } = render(<Header />);
     const appBar = container.querySelector("[class*='MuiAppBar']");
     expect(appBar).toBeInTheDocument();
+  });
+
+  it("should render Toolbar component", () => {
+    const { container } = render(<Header />);
+    const toolbar = container.querySelector("[class*='MuiToolbar']");
+    expect(toolbar).toBeInTheDocument();
   });
 });
