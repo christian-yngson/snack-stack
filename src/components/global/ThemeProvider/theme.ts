@@ -13,6 +13,21 @@ const theme = createTheme({
       main: blue[500],
     },
   },
+  typography: {
+    h1: {
+      fontSize: "6rem",
+      lineHeight: 1.1,
+      "@media (max-width: 700px)": {
+        fontSize: "2rem",
+      },
+    },
+    h4: {
+      fontSize: "2rem",
+      "@media (max-width: 700px)": {
+        fontSize: "1rem",
+      },
+    },
+  },
   components: {
     MuiButtonBase: {
       defaultProps: {
