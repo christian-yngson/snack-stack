@@ -7,7 +7,13 @@ function CarouselItemButton(props: IconButtonProps) {
       initial={false}
       aria-label={props["aria-label"]}
       onClick={props.onClick}
-      sx={props.sx}
+      sx={{
+        ...props.sx,
+        display: {
+          xs: "none",
+          md: "flex",
+        },
+      }}
     >
       {props.children}
     </MotionIconButton>

@@ -5,6 +5,7 @@ import CarouselDarkOverlay from "../CarouselDarkOverlay";
 import { forwardRef } from "react";
 import MotionDiv from "@/components/common/MotionDiv";
 import Box from "@mui/material/Box";
+import getCarouselHeight from "../functions/getCarouselHeight";
 
 interface Props {
   image: string;
@@ -35,8 +36,8 @@ const CarouselItem = forwardRef<HTMLDivElement, Props>(
             image={image}
             alt={altText}
             sx={{
+              ...getCarouselHeight(),
               width: "100%",
-              height: "60vh",
               objectFit: "cover", // fills container, crops if needed
             }}
           />

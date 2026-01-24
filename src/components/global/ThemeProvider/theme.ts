@@ -20,11 +20,17 @@ const theme = createTheme({
       "@media (max-width: 700px)": {
         fontSize: "2rem",
       },
+      "@media (max-width: 1200px)": {
+        fontSize: "3.2rem",
+      },
     },
     h4: {
       fontSize: "2rem",
       "@media (max-width: 700px)": {
         fontSize: "1rem",
+      },
+      "@media (max-width: 1200px)": {
+        fontSize: "1.2rem",
       },
     },
   },

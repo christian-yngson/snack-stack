@@ -5,8 +5,24 @@ import CarouselItemButton from "./CarouselItemButton";
 import { type ReactNode } from "react";
 
 vi.mock("@/components/common/MotionIconButton", () => ({
-  default: ({ children, ...props }: { children: ReactNode }) => (
-    <button {...props}>{children}</button>
+  default: ({
+    children,
+    "aria-label": ariaLabel,
+    onClick,
+    sx,
+  }: {
+    children: ReactNode;
+    "aria-label"?: string;
+    onClick?: () => void;
+    sx?: Record<string, unknown>;
+  }) => (
+    <button
+      aria-label={ariaLabel}
+      onClick={onClick}
+      data-sx={JSON.stringify(sx)}
+    >
+      {children}
+    </button>
   ),
 }));
 
@@ -45,16 +61,33 @@ describe("CarouselItemButton", () => {
     expect(handleClick).toHaveBeenCalledTimes(1);
   });
 
-  it("passes sx prop to MotionIconButton", () => {
-    const sxProp = { color: "primary.main" };
+  it("merges custom sx prop with default display styles", () => {
+    const customSx = { color: "primary.main", backgroundColor: "red" };
 
     render(
-      <CarouselItemButton aria-label="styled button" sx={sxProp}>
+      <CarouselItemButton aria-label="styled button" sx={customSx}>
         <span>Styled</span>
       </CarouselItemButton>,
     );
 
     const button = screen.getByLabelText("styled button");
-    expect(button).toBeInTheDocument();
+    const sxData = JSON.parse(button.getAttribute("data-sx") || "{}");
+
+    expect(sxData.color).toBe("primary.main");
+    expect(sxData.backgroundColor).toBe("red");
+    expect(sxData.display).toEqual({ xs: "none", md: "flex" });
+  });
+
+  it("applies responsive display styles by default", () => {
+    render(
+      <CarouselItemButton aria-label="responsive button">
+        <span>Responsive</span>
+      </CarouselItemButton>,
+    );
+
+    const button = screen.getByLabelText("responsive button");
+    const sxData = JSON.parse(button.getAttribute("data-sx") || "{}");
+
+    expect(sxData.display).toEqual({ xs: "none", md: "flex" });
   });
 });
