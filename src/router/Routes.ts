@@ -1,4 +1,5 @@
 const Routes = {
+  home: "/",
   order: "order",
   faq: "faq",
   contact: "contact",
