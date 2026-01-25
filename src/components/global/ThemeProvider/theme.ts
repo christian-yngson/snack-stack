@@ -55,6 +55,23 @@ const theme = createTheme({
         },
       },
     },
+    MuiTypography: {
+      variants: [
+        {
+          props: { variant: "hero" },
+          style: {
+            fontSize: "4rem",
+            lineHeight: 1.1,
+            "@media (max-width: 1200px)": {
+              fontSize: "3.2rem",
+            },
+            "@media (max-width: 700px)": {
+              fontSize: "2rem",
+            },
+          },
+        },
+      ],
+    },
   },
 });
 
