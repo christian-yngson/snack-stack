@@ -2,12 +2,12 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import CarouselDarkOverlay from "../CarouselDarkOverlay";
-import { forwardRef } from "react";
-import MotionDiv from "@/components/common/MotionDiv";
 import Box from "@mui/material/Box";
 import getCarouselHeight from "../functions/getCarouselHeight";
+import getAnimation from "./functions/getAnimation";
 
 interface Props {
+  active: boolean;
   image: string;
   altText: string;
   title: string;
@@ -15,80 +15,70 @@ interface Props {
 }
 
 /* @TODO add test immediate */
-const CarouselItem = forwardRef<HTMLDivElement, Props>(
-  ({ image, altText, title, subtitle }, ref) => {
-    return (
-      <Box sx={{ position: "relative" }}>
-        <MotionDiv
-          ref={ref}
-          initial={{ opacity: 0 }}
-          animate={{
-            opacity: 1,
-            transition: { duration: 0.6, ease: "easeOut" },
-          }}
-          exit={{
+function CarouselItem({ active, image, altText, title, subtitle }: Props) {
+  return (
+    <Box
+      className="carousel-item"
+      sx={{
+        position: "absolute",
+        opacity: active ? 1 : 0,
+        transition: "opacity 0.5s ease-in-out",
+        zIndex: active ? 1 : 0,
+        width: "100%",
+      }}
+    >
+      <CardMedia
+        component="img"
+        image={image}
+        alt={altText}
+        sx={{
+          ...getCarouselHeight(),
+          width: "100%",
+          objectFit: "cover", // fills container, crops if needed
+        }}
+      />
+      <Stack
+        className="typography"
+        sx={{
+          position: "absolute",
+          top: "40%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          color: "white",
+          textAlign: "center",
+          zIndex: 1,
+          width: "96%",
+        }}
+        gap={1}
+      >
+        <Typography
+          key={`${active}-title`}
+          variant="h1"
+          sx={{
             opacity: 0,
-            transition: { duration: 0.4, ease: "easeIn" },
+            left: -80,
+            position: "relative",
+            animation: getAnimation({ left: -80, duration: 400, delay: 400 }),
           }}
         >
-          <CardMedia
-            component="img"
-            image={image}
-            alt={altText}
-            sx={{
-              ...getCarouselHeight(),
-              width: "100%",
-              objectFit: "cover", // fills container, crops if needed
-            }}
-          />
-          <Stack
-            className="typography"
-            sx={{
-              position: "absolute",
-              top: "40%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              color: "white",
-              textAlign: "center",
-              zIndex: 1,
-              width: "96%",
-            }}
-            gap={1}
-          >
-            <MotionDiv
-              initial={{ opacity: 0, x: -24 }}
-              animate={{
-                opacity: 1,
-                x: 0,
-                transition: {
-                  delay: 0.5,
-                  duration: 0.4,
-                  ease: "easeOut",
-                },
-              }}
-            >
-              <Typography variant="h1">{title}</Typography>
-            </MotionDiv>
-            <MotionDiv
-              initial={{ opacity: 0, x: 24 }}
-              animate={{
-                opacity: 1,
-                x: 0,
-                transition: {
-                  delay: 0.6,
-                  duration: 0.4,
-                  ease: "easeOut",
-                },
-              }}
-            >
-              <Typography variant="h4">{subtitle}</Typography>
-            </MotionDiv>
-          </Stack>
-          <CarouselDarkOverlay />
-        </MotionDiv>
-      </Box>
-    );
-  },
-);
+          {title}
+        </Typography>
 
+        <Typography
+          key={`${active}-subtitle`}
+          variant="h4"
+          sx={{
+            opacity: 0,
+            left: 80,
+            position: "relative",
+            animation: getAnimation({ left: 80, duration: 300, delay: 600 }),
+          }}
+        >
+          {subtitle}
+        </Typography>
+      </Stack>
+      <CarouselDarkOverlay />
+    </Box>
+  );
+}
 export default CarouselItem;
