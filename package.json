@@ -12,6 +12,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
+    "view": "pnpm run build && pnpm run preview",
     "test": "vitest"
   },
   "dependencies": {
