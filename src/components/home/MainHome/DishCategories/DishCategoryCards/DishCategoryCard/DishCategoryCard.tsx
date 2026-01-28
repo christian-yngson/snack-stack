@@ -1,4 +1,4 @@
-import Card from "@mui/material/Card";
+import Card from "@/components/common/MotionCard";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
@@ -17,6 +17,16 @@ function DishCategoryCard({ name, description, image }: Props) {
         height: "100%",
         maxWidth: 345,
         borderRadius: 4,
+      }}
+      whileHover={{
+        y: -8,
+        scale: 1.02,
+        rotate: 0.4,
+      }}
+      transition={{
+        type: "spring",
+        stiffness: 280,
+        damping: 18,
       }}
     >
       <CardActionArea sx={{ height: "100%" }}>
