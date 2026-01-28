@@ -3,6 +3,7 @@ import Grid from "@mui/material/Grid";
 import ProductsListItem from "./ProductsListItem";
 import getFoodItems from "@/lib/functions/getFoodItems";
 
+/* @TODO add test immediate */
 function ProductsList() {
   const foodItems = getFoodItems();
   return (

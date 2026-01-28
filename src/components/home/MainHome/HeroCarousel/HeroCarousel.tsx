@@ -1,5 +1,4 @@
 import Box from "@mui/material/Box";
-import { AnimatePresence } from "motion/react";
 import CarouselItem from "./CarouselItem";
 import CarouselPreviousButton from "./CarouselPreviousButton/CarouselPreviousButton";
 import CarouselNextButton from "./CarouselNextButton/CarouselNextButton";
@@ -9,28 +8,33 @@ import getCarouselHeight from "./functions/getCarouselHeight";
 import useCarousel from "./hooks/useCarousel/useCarousel";
 
 function HeroCarousel() {
-  const { activeItem, setSlide } = useCarousel();
+  const { items, slide, setSlide } = useCarousel();
   return (
     <Box
       sx={{
         position: "relative",
         width: "100%",
-        height: getCarouselHeight(),
         overflow: "hidden",
         backgroundColor: "black",
+        ...getCarouselHeight(),
       }}
     >
-      <CarouselPreviousButton onClick={() => setSlide(-1)} />
-      <AnimatePresence initial={false} mode="popLayout">
+      <CarouselPreviousButton
+        onClick={() => setSlide((slide - 1 + items.length) % items.length)}
+      />
+      {items.map((item, index) => (
         <CarouselItem
-          key={activeItem.image}
-          image={activeItem.image}
-          altText={activeItem.altText}
-          title={activeItem.title}
-          subtitle={activeItem.subtitle}
+          key={item.image}
+          active={index === slide}
+          image={item.image}
+          altText={item.altText}
+          title={item.title}
+          subtitle={item.subtitle}
         />
-      </AnimatePresence>
-      <CarouselNextButton onClick={() => setSlide(1)} />
+      ))}
+      <CarouselNextButton
+        onClick={() => setSlide((slide + 1) % items.length)}
+      />
       <HeroOrderButton />
       <HeroPerks />
     </Box>

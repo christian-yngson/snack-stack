@@ -23,6 +23,7 @@ function HeroOrderButton() {
         },
         left: "50%",
         transform: "translateX(-50%)",
+        zIndex: 2,
       }}
     >
       <Button

@@ -3,8 +3,7 @@ import Burger from "@/assets/images/home/burger.jpg";
 import HawaiianPizza from "@/assets/images/home/hawaiian-pizza.jpg";
 import Spaghetti from "@/assets/images/home/spaghetti.jpg";
 import Lobster from "@/assets/images/home/lobster.jpg";
-import { useCallback, useEffect, useState } from "react";
-import { wrap } from "motion/react";
+import { useEffect, useState } from "react";
 
 /* @Blog */
 const useCarousel = () => {
@@ -43,25 +42,18 @@ const useCarousel = () => {
 
   const [selectedItem, setSelectedItem] = useState<number>(0);
 
-  const setSlide = useCallback(
-    (newDirection: 1 | -1) => {
-      const nextItem = wrap(0, items.length, selectedItem + newDirection);
-      setSelectedItem(nextItem);
-    },
-    [selectedItem, items.length],
-  );
-
   useEffect(() => {
     const interval = setInterval(() => {
-      setSlide(1);
+      setSelectedItem((prev) => (prev + 1) % items.length);
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [selectedItem, setSlide]);
+  }, [setSelectedItem, items.length]);
 
   return {
-    activeItem: items[selectedItem],
-    setSlide,
+    items,
+    slide: selectedItem,
+    setSlide: setSelectedItem,
   };
 };
 

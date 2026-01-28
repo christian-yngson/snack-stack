@@ -16,7 +16,6 @@ function CarouselNextButton({ onClick }: Props) {
         right: 20,
         top: "50%",
         transform: "translateY(-50%)",
-        zIndex: 1,
         color: "white",
       }}
     >

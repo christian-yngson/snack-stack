@@ -9,6 +9,7 @@ function CarouselItemButton(props: IconButtonProps) {
       onClick={props.onClick}
       sx={{
         ...props.sx,
+        zIndex: 2,
         display: {
           xs: "none",
           md: "flex",
