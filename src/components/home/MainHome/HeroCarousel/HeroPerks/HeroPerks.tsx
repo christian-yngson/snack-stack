@@ -43,6 +43,7 @@ function HeroPerks() {
         "@media (max-height: 800px)": {
           display: "none",
         },
+        zIndex: 2,
       }}
     >
       {perks.map((perk, index) => (
