@@ -1,34 +1,6 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { renderHook } from "@testing-library/react";
+import { renderHook, act } from "@testing-library/react";
 import useCarousel from "./useCarousel";
-import { act } from "react";
-
-vi.mock("motion/react", () => ({
-  wrap: (min: number, max: number, value: number) => {
-    const range = max - min;
-    return ((((value - min) % range) + range) % range) + min;
-  },
-}));
-
-vi.mock("@/assets/images/home/steak.jpg", () => ({
-  default: "steak.jpg",
-}));
-
-vi.mock("@/assets/images/home/burger.jpg", () => ({
-  default: "burger.jpg",
-}));
-
-vi.mock("@/assets/images/home/hawaiian-pizza.jpg", () => ({
-  default: "hawaiian-pizza.jpg",
-}));
-
-vi.mock("@/assets/images/home/spaghetti.jpg", () => ({
-  default: "spaghetti.jpg",
-}));
-
-vi.mock("@/assets/images/home/lobster.jpg", () => ({
-  default: "lobster.jpg",
-}));
 
 describe("useCarousel", () => {
   beforeEach(() => {
@@ -36,134 +8,63 @@ describe("useCarousel", () => {
   });
 
   afterEach(() => {
-    // Clear all timers without running them to avoid act() warnings
-    vi.clearAllTimers();
-    vi.useRealTimers();
+    vi.restoreAllMocks();
   });
 
-  it("should initialize with the first carousel item", () => {
-    const { result, unmount } = renderHook(() => useCarousel());
-
-    expect(result.current.activeItem.title).toBe("Welcome to Snack Stack");
-    expect(result.current.activeItem.altText).toBe("Burger");
-
-    unmount();
-  });
-
-  it("should move to the next item when setSlide is called with 1", () => {
+  it("should initialize with first slide", () => {
     const { result } = renderHook(() => useCarousel());
 
-    act(() => {
-      result.current.setSlide(1);
-    });
-
-    expect(result.current.activeItem.title).toBe("Fresh & Fast Delivery");
-    expect(result.current.activeItem.altText).toBe("Hawaiian Pizza");
+    expect(result.current.slide).toBe(0);
+    expect(result.current.items).toHaveLength(5);
   });
 
-  it("should move to the previous item when setSlide is called with -1", () => {
+  it("should return carousel items with correct structure", () => {
     const { result } = renderHook(() => useCarousel());
 
-    // First go forward twice (separate act blocks due to useCallback dependency)
-    act(() => {
-      result.current.setSlide(1);
-    });
-    act(() => {
-      result.current.setSlide(1);
-    });
-
-    // Now at index 2 (Spaghetti), go back
-    act(() => {
-      result.current.setSlide(-1);
-    });
-
-    // Should be at index 1 (Hawaiian Pizza)
-    expect(result.current.activeItem.title).toBe("Fresh & Fast Delivery");
-    expect(result.current.activeItem.altText).toBe("Hawaiian Pizza");
+    expect(result.current.items[0]).toHaveProperty("image");
+    expect(result.current.items[0]).toHaveProperty("altText");
+    expect(result.current.items[0]).toHaveProperty("title");
+    expect(result.current.items[0]).toHaveProperty("subtitle");
   });
 
-  it("should wrap around to the first item when reaching the end", () => {
+  it("should auto-advance to next slide after 5 seconds", () => {
     const { result } = renderHook(() => useCarousel());
 
-    // Navigate through all 5 items (separate act blocks for each)
-    act(() => {
-      result.current.setSlide(1);
-    });
-    act(() => {
-      result.current.setSlide(1);
-    });
-    act(() => {
-      result.current.setSlide(1);
-    });
-    act(() => {
-      result.current.setSlide(1);
-    });
-    act(() => {
-      result.current.setSlide(1);
-    });
-
-    // Should wrap back to first item
-    expect(result.current.activeItem.title).toBe("Welcome to Snack Stack");
-    expect(result.current.activeItem.altText).toBe("Burger");
-  });
-
-  it("should wrap around to the last item when going backward from the first", () => {
-    const { result } = renderHook(() => useCarousel());
-
-    expect(result.current.activeItem.altText).toBe("Burger");
-
-    act(() => {
-      result.current.setSlide(-1);
-    });
-
-    expect(result.current.activeItem.title).toBe("Feast on Excellence");
-    expect(result.current.activeItem.altText).toBe("Lobster");
-  });
-
-  it("should auto-advance to the next item every 5 seconds", () => {
-    const { result } = renderHook(() => useCarousel());
-
-    expect(result.current.activeItem.title).toBe("Welcome to Snack Stack");
+    expect(result.current.slide).toBe(0);
 
     act(() => {
       vi.advanceTimersByTime(5000);
     });
 
-    expect(result.current.activeItem.title).toBe("Fresh & Fast Delivery");
-
-    act(() => {
-      vi.advanceTimersByTime(5000);
-    });
-
-    expect(result.current.activeItem.title).toBe("Tasty Meals, Happy Deals");
+    expect(result.current.slide).toBe(1);
   });
 
-  it("should allow multiple consecutive slides", () => {
+  it("should cycle back to first slide after last slide", () => {
     const { result } = renderHook(() => useCarousel());
 
-    // Navigate to index 3 (Steak) with separate act blocks
     act(() => {
-      result.current.setSlide(1);
-    });
-    act(() => {
-      result.current.setSlide(1);
-    });
-    act(() => {
-      result.current.setSlide(1);
+      vi.advanceTimersByTime(25000); // 5 slides * 5 seconds
     });
 
-    expect(result.current.activeItem.title).toBe("Savor the Flavor");
-    expect(result.current.activeItem.altText).toBe("Steak");
-    expect(result.current.activeItem.image).toBe("steak.jpg");
+    expect(result.current.slide).toBe(0);
   });
 
-  it("should clear the interval on unmount", () => {
-    const clearIntervalSpy = vi.spyOn(window, "clearInterval");
+  it("should allow manual slide change", () => {
+    const { result } = renderHook(() => useCarousel());
+
+    act(() => {
+      result.current.setSlide(3);
+    });
+
+    expect(result.current.slide).toBe(3);
+  });
+
+  it("should clean up interval on unmount", () => {
     const { unmount } = renderHook(() => useCarousel());
+    const clearIntervalSpy = vi.spyOn(window, "clearInterval");
 
     unmount();
 
     expect(clearIntervalSpy).toHaveBeenCalled();
-    clearIntervalSpy.mockRestore();
   });
 });
